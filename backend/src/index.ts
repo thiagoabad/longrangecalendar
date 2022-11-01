@@ -7,6 +7,11 @@ import configGenerator from './config/config'
 import cors from 'cors'
 import helmet from 'helmet'
 
+//TODO Log using winston
+//TODO Migrations using umzug
+//TODO Auth - library not defined
+//TODO Docs with swagger?
+
 const config = configGenerator()
 dotenv.config({
   path: '.env',
