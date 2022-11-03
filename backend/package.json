@@ -7,7 +7,8 @@
     "dev": "nodemon ./src/index.ts",
     "build": "tsc",
     "prettier": "prettier --config .prettierrc.json --write src/**/*.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier-test": "prettier --config .prettierrc.json --write test/**/*.ts",
+    "test": "mocha --require ts-node/register ./test/*"
   },
   "author": "Thiago Abad",
   "license": "ISC",
@@ -22,13 +23,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
+    "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.7",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
+    "chai": "^4.3.6",
     "eslint": "^8.26.0",
+    "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
     "remove": "^0.1.5",
+    "supertest": "^6.3.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
   }

@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+require('dotenv').config()
 import express, { Request, Response, NextFunction } from 'express'
 import sequelize from './db'
 import MainRouter from './routers/MainRouter'
@@ -13,9 +13,9 @@ import helmet from 'helmet'
 //TODO Docs with swagger?
 
 const config = configGenerator()
-dotenv.config({
-  path: '.env',
-})
+
+export const port = process.env.APP_PORT || config.app.port || 3000
+export let live = false;
 
 class Server {
   public app = express()
@@ -44,11 +44,21 @@ sequelize
         message: err.message,
       })
     })
-    ;((port = process.env.APP_PORT || config.app.port || 3000) => {
-      server.app.listen(port, () => console.log(`> Listening on port ${port}`))
-    })()
+    console.log(`> Preparation done`)
+    live = true
+    if (require.main === module) {
+      server.app.listen(port, () => {
+        console.log(`> Listening on port ${port}`)
+      })
+    }
   })
   .catch((error) => {
     console.log('Error connection to database')
     throw new Error(error.message)
   })
+
+export default function serverApp(callback: Function) {
+  setTimeout(function () {
+      return live ? callback(server.app) : serverApp(callback)
+  }, 1000);
+} 
