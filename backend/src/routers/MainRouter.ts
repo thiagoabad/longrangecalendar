@@ -51,7 +51,7 @@ class MainRouter {
           },
         })
         if (!event) {
-          res.status(404)
+          res.sendStatus(404)
         } else {
           res.status(200).json(event)
         }
@@ -62,23 +62,27 @@ class MainRouter {
     })
     this._router.post('/event', async (req: Request, res: Response, next: NextFunction) => {
       try {
+        console.log('1')
         const event = await Event.create({
           name: req.body.name,
           maintenanceDate: req.body.maintenanceDate,
           user: req.body.user,
         })
-        res.set('Location', `http://${req.headers.host}${req.originalUrl}/${event.getDataValue('id')}`)
-        res.status(201).json({ status: 'created', id: event.getDataValue('id') })
+        console.log('2')
+        res
+          .set('Location', `http://${req.headers.host}${req.originalUrl}/${event.getDataValue('id')}`)
+          .status(201)
+          .json({ status: 'created', id: event.getDataValue('id') })
       } catch (e: Error | any) {
         console.log(e.message)
         res.status(500).json({ message: 'Unhandled error' })
       }
     })
     this._router.post('/event/:id', (req: Request, res: Response, next: NextFunction) => {
-      res.status(405)
+      res.sendStatus(405)
     })
     this._router.put('/event', (req: Request, res: Response, next: NextFunction) => {
-      res.status(405)
+      res.sendStatus(405)
     })
     this._router.put('/event/:id', async (req: Request, res: Response, next: NextFunction) => {
       try {
