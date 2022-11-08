@@ -1,7 +1,9 @@
 import serverApp, { port } from '../src/index'
 import http from 'http'
-var request = require('supertest')
-var expect = require('chai').expect
+import request from 'supertest'
+import chai from 'chai'
+
+const expect = chai.expect
 
 describe('EventModel', function () {
   console.log('Test start!');
@@ -238,7 +240,7 @@ describe('EventModel', function () {
       })
   })
 
-  // Delete
+  // Delete -- Just cleaning
   it('should response with status code 200', (done) => {
     request(server)
       .delete(`/api/v1/event/${id2}`)
