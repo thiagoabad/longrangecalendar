@@ -30,18 +30,52 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .Header {
   width: 100%;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+.InsertForm {
+  padding: 5% 5% 0 5%;
+}
+
+.form-title {
+  font-size: 1.5rem !important;
+  color: aliceblue !important;
+}
+
+.InsertFormField {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0rem !important;
+}
+
+.InsertFormFieldLabel {
+  color: aliceblue;
+  margin: 0rem 1.1rem;
+  width: 4rem;
+}
+
+.EventsTable {
+  padding: 5% 5% 0 5%;
+}
+
+.Middle {
+  min-height: 88.3vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Footer {
+  margin-top: auto;
+}
+
+.TableHeader {
+  color: aliceblue;
+}
+
+.TableRow {
+  color: aliceblue !important;
 }
