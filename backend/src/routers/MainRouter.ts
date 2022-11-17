@@ -62,13 +62,12 @@ class MainRouter {
     })
     this._router.post('/event', async (req: Request, res: Response, next: NextFunction) => {
       try {
-        console.log('1')
+        console.log(req.body)
         const event = await Event.create({
           name: req.body.name,
           maintenanceDate: req.body.maintenanceDate,
           user: req.body.user,
         })
-        console.log('2')
         res
           .set('Location', `http://${req.headers.host}${req.originalUrl}/${event.getDataValue('id')}`)
           .status(201)
