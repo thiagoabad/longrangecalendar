@@ -62,7 +62,10 @@ class MainRouter {
     })
     this._router.post('/event', async (req: Request, res: Response, next: NextFunction) => {
       try {
-        console.log(req.body)
+        if (req.body && Object.keys(req.body).length === 0){
+          res.sendStatus(400)
+          return
+        }
         const event = await Event.create({
           name: req.body.name,
           maintenanceDate: req.body.maintenanceDate,

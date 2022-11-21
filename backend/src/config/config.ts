@@ -20,7 +20,7 @@ interface EnvConfig {
 
 const dev = {
   app: {
-    port: 3000,
+    port: 3001,
   },
   db: {
     host: 'localhost',
@@ -31,7 +31,7 @@ const dev = {
 
 const stag = {
   app: {
-    port: 3000,
+    port: 3002,
   },
   db: {
     host: 'localhost',
