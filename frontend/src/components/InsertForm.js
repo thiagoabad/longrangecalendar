@@ -10,9 +10,10 @@ const texts = {
     nameFormPlaceholder: "No-break Intime",
     dateForm: "Data",
     buttonText: "Gravar",
-  }
+}
 
-function InsertForm() {
+function InsertForm(props) {
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(name, maintenanceDate)
@@ -20,7 +21,7 @@ function InsertForm() {
             name,
             maintenanceDate,
             user: "placeHolder"
-        });
+        }).then(() => props.refreshTableObserver.notify())
     }
 
     const [name, setName] = useState("");

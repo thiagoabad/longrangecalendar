@@ -19,7 +19,26 @@ const mock = [
   },
 ]
 
+class RefreshTableObserver {
+  constructor() {
+    this.observers = [];
+  }
+
+  subscribe(f) {
+    this.observers.push(f);
+  }
+
+  unsubscribe(f) {
+    this.observers = this.observers.filter(subscriber => subscriber !== f);
+  }
+
+  notify() {
+    this.observers.forEach(observer => observer());
+  }
+}
+
 function App() {
+  const refreshTableObserver = new RefreshTableObserver();
   return (
     <div className="App">
       <header className="Header">
@@ -27,10 +46,13 @@ function App() {
       </header>
       <div className='Middle'>
         <div className='InsertForm'>
-          <InsertForm/>
+          <InsertForm
+            refreshTableObserver={refreshTableObserver}
+          />
         </div>
         <div className='EventsTable'>
           <EventsTable
+            refreshTableObserver={refreshTableObserver}
             records={mock}
           />
         </div>

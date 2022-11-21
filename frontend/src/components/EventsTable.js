@@ -1,18 +1,26 @@
 import Table from 'react-bootstrap/Table';
 import Events from '../services/Events';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function EventsTable(props) {
 
   const [events, setEvents] = useState({rows: [<tr key={1}></tr>]});
   const [loading, setLoading] = useState(true);
 
-  if (loading) {
+  const updateEvents = () => {
     Events.getAll().then((res) => {
       setEvents(res)
       setLoading(false)
     });
   }
+
+  if (loading) {
+    updateEvents()
+  }
+
+  useEffect(() => {
+    props.refreshTableObserver.subscribe(updateEvents)
+  }, [props.refreshTableObserver]);
 
   const records = events.rows.map(event => {
     const date = (new Date(event.maintenanceDate))
