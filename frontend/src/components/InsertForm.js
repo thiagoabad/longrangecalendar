@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Events from '../services/Events';
 
 const texts = {
@@ -16,16 +16,41 @@ function InsertForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(name, maintenanceDate)
-        Events.create({
-            name,
-            maintenanceDate,
-            user: "placeHolder"
-        }).then(() => props.refreshTableObserver.notify())
+        if (props.event) {
+            Events.update({
+                id: props.event.id,
+                name,
+                maintenanceDate,
+                user: "placeHolder"
+            }).then(() => {
+                setName("");
+                setMaintenanceDate((new Date()).toISOString().slice(0, 10));
+                props.clearEvent(null);
+                props.refreshTableObserver.notify();
+            });
+        } else {
+            Events.create({
+                name,
+                maintenanceDate,
+                user: "placeHolder"
+            }).then(() => {
+                setName("");
+                setMaintenanceDate((new Date()).toISOString().slice(0, 10));
+                props.refreshTableObserver.notify();
+            });
+        }
     }
 
     const [name, setName] = useState("");
     const [maintenanceDate, setMaintenanceDate] = useState((new Date()).toISOString().slice(0, 10));
+
+    useEffect(() => {
+        if (props.event) {
+            console.log(props.event)
+            setName(props.event.name)
+            setMaintenanceDate(props.event.date)
+        }
+    }, [props.event])
 
     return (
         <Form  onSubmit={ e => {handleSubmit(e)} }>

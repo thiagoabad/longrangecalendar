@@ -5,6 +5,7 @@ import InsertForm from './components/InsertForm';
 import EventsTable from './components/EventsTable';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import React, { useState } from 'react';
 
 const mock = [
   {
@@ -39,6 +40,13 @@ class RefreshTableObserver {
 
 function App() {
   const refreshTableObserver = new RefreshTableObserver();
+
+  const [event, setEvent] = useState(null);
+
+  const fillForm = async (event) => {
+    setEvent(event);
+  }
+
   return (
     <div className="App">
       <header className="Header">
@@ -48,12 +56,15 @@ function App() {
         <div className='InsertForm'>
           <InsertForm
             refreshTableObserver={refreshTableObserver}
+            event={event}
+            clearEvent={setEvent}
           />
         </div>
         <div className='EventsTable'>
           <EventsTable
             refreshTableObserver={refreshTableObserver}
             records={mock}
+            fillForm={fillForm}
           />
         </div>
       </div>
